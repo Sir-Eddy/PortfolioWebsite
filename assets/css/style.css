@@ -333,6 +333,8 @@ main {
 
 .avatar-box {
   background: var(--orange-yellow-crayola);
+  padding: 2px !important;
+  border-radius: 18px;
 }
 
 .info-content .name {
@@ -697,7 +699,7 @@ main {
 .modal-avatar-box {
   background: var(--bg-gradient-onyx);
   width: max-content;
-  border-radius: 14px;
+  border-radius: 35px;
   margin-bottom: 15px;
   box-shadow: var(--shadow-2);
 }
@@ -1340,8 +1342,13 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .avatar-box img {
     width: 120px;
-    padding: 3px;
+    padding: 3px !important;
    }
+
+   .container .avatar-box img {
+    width: 120px;
+    padding: 3px !important;
+}
 
   .info-content .name { margin-bottom: 15px; }
 
