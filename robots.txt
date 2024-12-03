@@ -6,3 +6,4 @@ Disallow: /*.gif$
 Disallow: /*.bmp$
 Disallow: /*.svg$
 Disallow: /*.avif$
+Disallow: /*.pdf$
