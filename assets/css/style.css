@@ -1336,9 +1336,12 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .sidebar-info { gap: 25px; }
 
-  .avatar-box { border-radius: 11px; }
+  .avatar-box { border-radius: 35px; }
 
-  .avatar-box img { width: 120px; }
+  .avatar-box img {
+    width: 120px;
+    padding: 3px;
+   }
 
   .info-content .name { margin-bottom: 15px; }
 
