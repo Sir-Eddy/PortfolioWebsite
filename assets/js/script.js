@@ -110,11 +110,11 @@ const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
-// add event to all form input field
+// Aktivieren des Buttons, wenn alle Felder ausgefüllt sind
 if (form && formInputs && formBtn) {
   for (let i = 0; i < formInputs.length; i++) {
     formInputs[i].addEventListener("input", function () {
-      // check form validation
+      // Überprüfen, ob das Formular valide ist
       if (form.checkValidity()) {
         formBtn.removeAttribute("disabled");
       } else {
@@ -122,7 +122,30 @@ if (form && formInputs && formBtn) {
       }
     });
   }
+
+  // Formular-Submit-Event
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Verhindert Standard-Seitenwechsel
+
+    const formData = new FormData(form); // Formulardaten sammeln
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+    })
+      .then((response) => response.text()) // Antwort vom Server lesen
+      .then((result) => {
+        alert(result); // Serverantwort anzeigen
+        form.reset(); // Formularfelder leeren
+        formBtn.setAttribute("disabled", ""); // Button wieder deaktivieren
+      })
+      .catch((error) => {
+        console.error("Fehler beim Senden des Formulars:", error); // Fehler anzeigen
+        alert("Es gab ein Problem beim Senden der Nachricht.");
+      });
+  });
 }
+
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
