@@ -1,25 +1,54 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullname = htmlspecialchars($_POST['fullname'] ?? '');
-    $email = htmlspecialchars($_POST['email'] ?? '');
-    $message = htmlspecialchars($_POST['message'] ?? '');
+    // Sanitize and validate inputs
+    $fullname = trim($_POST['fullname'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $message = trim($_POST['message'] ?? '');
 
+    // Basic input validation
     if (empty($fullname) || empty($email) || empty($message)) {
-        echo "Bitte füllen Sie alle Felder aus.";
+        echo "Please complete all fields.";
         exit;
     }
 
-    $to = "mail@about-elias.de";
-    $subject = "Neue Nachricht von $fullname";
-    $body = "Name: $fullname\nE-Mail: $email\nNachricht:\n$message";
-    $headers = "From: $email\r\nReply-To: $email\r\nX-Mailer: PHP/" . phpversion();
+    // Validate full name: Only letters and spaces
+    if (!preg_match("/^[A-Za-z\s]+$/", $fullname)) {
+        echo "Invalid name. Please use only letters and spaces.";
+        exit;
+    }
 
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email address.";
+        exit;
+    }
+
+    // Limit message length and sanitize
+    if (strlen($message) > 1000) {
+        echo "The message is too long. A maximum of 1000 characters is allowed.";
+        exit;
+    }
+    $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+
+    // Secure email headers to prevent injection
+    $to = "mail@about-elias.de";
+    $subject = "Neue Nachricht von " . htmlspecialchars($fullname, ENT_QUOTES, 'UTF-8');
+    $body = "Name: " . htmlspecialchars($fullname, ENT_QUOTES, 'UTF-8') . "\n"
+          . "E-Mail: " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "\n"
+          . "Nachricht:\n" . $message;
+    $headers = "From: no-reply@about-elias.de\r\n"
+             . "Reply-To: " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "\r\n"
+             . "X-Mailer: PHP/" . phpversion();
+
+    // Use mail function with validation
     if (mail($to, $subject, $body, $headers)) {
-        echo "Nachricht wurde erfolgreich gesendet!";
+        echo "Message sent successfully!";
     } else {
-        echo "Es gab ein Problem beim Senden der Nachricht.";
+        echo "There was a problem sending the message.";
     }
     exit;
 } else {
-    echo "Ungültige Anfrage.";
+    echo "Invalid request.";
+    exit;
 }
+?>
