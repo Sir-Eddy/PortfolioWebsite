@@ -1,36 +1,36 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and validate inputs
+
     $fullname = trim($_POST['fullname'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $message = trim($_POST['message'] ?? '');
 
-    // Basic input validation
     if (empty($fullname) || empty($email) || empty($message)) {
         echo "Please complete all fields.";
         exit;
     }
 
-    // Validate full name: Only letters and spaces
-    if (!preg_match("/^[A-Za-z\s]+$/", $fullname)) {
-        echo "Invalid name. Please use only letters and spaces.";
+    if (!preg_match("/^[\p{L}\s'-]+$/u", $fullname)) {
+        echo "Invalid name. Please use only letters, spaces, hyphens, or apostrophes.";
         exit;
-    }
+    }    
 
-    // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email address.";
         exit;
     }
 
-    // Limit message length and sanitize
-    if (strlen($message) > 1000) {
-        echo "The message is too long. A maximum of 1000 characters is allowed.";
+    if (preg_match('/[\r\n]/', $email)) {
+        echo "Invalid email address.";
+        exit;
+    }
+
+    if (strlen($message) < 10 || strlen($message) > 1000) {
+        echo "A minimum of 10 and a maximum of 1000 characters are required.";
         exit;
     }
     $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
-    // Secure email headers to prevent injection
     $to = "mail@about-elias.de";
     $subject = "Neue Nachricht von " . htmlspecialchars($fullname, ENT_QUOTES, 'UTF-8');
     $body = "Name: " . htmlspecialchars($fullname, ENT_QUOTES, 'UTF-8') . "\n"
@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              . "Reply-To: " . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . "\r\n"
              . "X-Mailer: PHP/" . phpversion();
 
-    // Use mail function with validation
     if (mail($to, $subject, $body, $headers)) {
         echo "Message sent successfully!";
     } else {
