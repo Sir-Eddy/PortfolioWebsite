@@ -1139,11 +1139,10 @@ main {
   width: 100%;
   height: 100%;
   border: none;
-  filter: invert(1)!important;
-  filter: grayscale(1)!important;
+  filter: grayscale(1) invert(1);
 }
 
-@supports (-webkit-backdrop-filter: none) {
+@supports (-webkit-overflow-scrolling: touch) {
   .mapbox iframe {
     filter: invert(1)!important;
     filter: grayscale(1)!important; /* Nur für Safari */
