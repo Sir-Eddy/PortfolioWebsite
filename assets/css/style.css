@@ -1140,6 +1140,7 @@ main {
   height: 100%;
   border: none;
   filter: grayscale(1) invert(1);
+  -webkit-filter: grayscale(1);
   -webkit-filter: invert(1);
 }
 
