@@ -1144,7 +1144,8 @@ main {
 
 @supports (-webkit-backdrop-filter: none) {
   .mapbox iframe {
-    filter: invert(1) grayscale(1);
+    filter: invert(1)!important;
+    filter: grayscale(1)!important; /* Nur für Safari */
   }
 }
 

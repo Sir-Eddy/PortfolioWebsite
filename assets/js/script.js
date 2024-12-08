@@ -170,10 +170,3 @@ if (navigationLinks && pages) {
     });
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const mapbox = document.querySelector('.mapbox');
-  if (mapbox) {
-    mapbox.style.filter = 'none'; // Entfernt alle Filter
-  }
-});
