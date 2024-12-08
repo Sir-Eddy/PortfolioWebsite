@@ -170,9 +170,3 @@ if (navigationLinks && pages) {
     });
   }
 }
-
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  document.querySelector('.mapbox iframe').style.filter = 'invert(1) grayscale(1)';
-} else {
-  document.querySelector('.mapbox iframe').style.filter = 'none';
-}
