@@ -1131,8 +1131,6 @@ main {
   margin-bottom: 30px;
   border: 1px solid var(--jet);
   overflow: hidden;
-  border-color: var(--orange-yellow-crayola);
-  filter: grayscale(1) invert(1);
 }
 
 .mapbox figure { height: 100%; }
@@ -1141,6 +1139,13 @@ main {
   width: 100%;
   height: 100%;
   border: none;
+  filter: grayscale(1) invert(1);
+}
+
+@supports (-webkit-backdrop-filter: none) {
+  .mapbox iframe {
+    filter: invert(1) grayscale(1);
+  }
 }
 
 .contact-form { margin-bottom: 10px; }
