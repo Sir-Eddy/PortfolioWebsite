@@ -171,3 +171,5 @@ if (navigationLinks && pages) {
   }
 }
 
+const iframe = document.querySelector('.mapbox iframe');
+iframe.style.filter = 'grayscale(1) invert(1)';
