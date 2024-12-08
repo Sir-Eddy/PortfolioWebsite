@@ -171,5 +171,8 @@ if (navigationLinks && pages) {
   }
 }
 
-const iframe = document.querySelector('.mapbox iframe');
-iframe.style.filter = 'grayscale(1) invert(1)';
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.querySelector('.mapbox iframe').style.filter = 'invert(1) grayscale(1)';
+} else {
+  document.querySelector('.mapbox iframe').style.filter = 'none';
+}
