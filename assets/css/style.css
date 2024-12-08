@@ -1142,13 +1142,6 @@ main {
   filter: grayscale(1) invert(1);
 }
 
-@supports (-webkit-overflow-scrolling: touch) {
-  .mapbox iframe {
-    filter: invert(1)!important;
-    filter: grayscale(1)!important; /* Nur für Safari */
-  }
-}
-
 .contact-form { margin-bottom: 10px; }
 
 .form-title { margin-bottom: 20px; }
