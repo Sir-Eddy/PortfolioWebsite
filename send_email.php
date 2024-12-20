@@ -15,12 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }    
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email address.";
-        exit;
-    }
-
-    if (preg_match('/[\r\n]/', $email)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n:]/', $email)) {
         echo "Invalid email address.";
         exit;
     }
@@ -29,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "A minimum of 10 and a maximum of 1000 characters are required.";
         exit;
     }
+    $message = strip_tags($message);
     $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
     $to = "mail@about-elias.de";
